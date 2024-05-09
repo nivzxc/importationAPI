@@ -24,69 +24,93 @@ namespace Importation.Migrations
 
             modelBuilder.Entity("Importation.Model.Shipment", b =>
                 {
-                    b.Property<string>("shipmentID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("shipmentid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("shipmentid"));
 
                     b.Property<DateTime>("ArrivalDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ContainerNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("ShipmentDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("SupplierID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.HasKey("shipmentID");
+                    b.Property<string>("shipmentNo")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
-                    b.ToTable("Shipments");
+                    b.HasKey("shipmentid");
+
+                    b.ToTable("Shipments", (string)null);
                 });
 
             modelBuilder.Entity("Importation.Model.Unit", b =>
                 {
-                    b.Property<string>("UnitID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UnitId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UnitId"));
 
                     b.Property<string>("BodyType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ChassisNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Color")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("EngineNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Make")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Series")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("UnitNo")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("Year")
+                        .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("shipmentID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("shipmentid")
+                        .HasColumnType("int");
 
-                    b.HasKey("UnitID");
+                    b.HasKey("UnitId");
 
-                    b.HasIndex("shipmentID");
+                    b.HasIndex("shipmentid");
 
-                    b.ToTable("Units");
+                    b.ToTable("Units", (string)null);
                 });
 
             modelBuilder.Entity("Importation.Model.UserAccount", b =>
@@ -98,24 +122,29 @@ namespace Importation.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"));
 
                     b.Property<int>("Admin")
+                        .HasMaxLength(1)
                         .HasColumnType("int");
 
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("LoginStatus")
+                        .HasMaxLength(1)
                         .HasColumnType("int");
 
                     b.Property<string>("ModifiedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Officer")
+                        .HasMaxLength(1)
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("RecordDate")
                         .HasColumnType("datetime2");
@@ -125,45 +154,56 @@ namespace Importation.Migrations
 
                     b.Property<string>("UserLoginID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("UserID");
 
-                    b.ToTable("UsersAccount");
+                    b.ToTable("UsersAccount", (string)null);
                 });
 
             modelBuilder.Entity("Importation.Model.UserInformation", b =>
                 {
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"));
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MiddleName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MobileNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<int>("UserLoginIDUserID")
                         .HasColumnType("int");
@@ -172,16 +212,18 @@ namespace Importation.Migrations
 
                     b.HasIndex("UserLoginIDUserID");
 
-                    b.ToTable("UsersInformation");
+                    b.ToTable("UsersInformation", (string)null);
                 });
 
             modelBuilder.Entity("Importation.Model.Unit", b =>
                 {
-                    b.HasOne("Importation.Model.Shipment", null)
+                    b.HasOne("Importation.Model.Shipment", "shipmentId")
                         .WithMany("Units")
-                        .HasForeignKey("shipmentID")
+                        .HasForeignKey("shipmentid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("shipmentId");
                 });
 
             modelBuilder.Entity("Importation.Model.UserInformation", b =>

@@ -15,17 +15,24 @@ namespace Importation.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Shipment>()
-                .HasKey(s => s.shipmentID);
+                .HasKey(s => new { s.shipmentid });
+            modelBuilder.Entity<Shipment>()
+                .HasMany(u => u.Units);
+
 
             modelBuilder.Entity<Unit>()
-                .HasKey(unit => unit.UnitID);
+                .HasKey(u => new { u.UnitId });
+            modelBuilder.Entity<Unit>()
+                .HasOne(s => s.shipmentId);
 
             modelBuilder.Entity<UserAccount>()
-            .HasKey(acc => acc.UserID);
+                .HasKey(ua => new { ua.UserID });
 
             modelBuilder.Entity<UserInformation>()
-                .HasKey(User => User.UserID);            
-        
+                .HasKey(ui => new { ui.UserID });
+            modelBuilder.Entity<UserInformation>()
+                .HasOne(u => u.UserLoginID);                         
+
         }
     }
 }
