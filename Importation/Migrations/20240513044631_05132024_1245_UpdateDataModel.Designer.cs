@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Importation.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240509064304_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240513044631_05132024_1245_UpdateDataModel")]
+    partial class _05132024_1245_UpdateDataModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,10 +28,7 @@ namespace Importation.Migrations
             modelBuilder.Entity("Importation.Model.Shipment", b =>
                 {
                     b.Property<int>("shipmentid")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("shipmentid"));
 
                     b.Property<DateTime>("ArrivalDate")
                         .HasColumnType("datetime2");
@@ -62,10 +59,7 @@ namespace Importation.Migrations
             modelBuilder.Entity("Importation.Model.Unit", b =>
                 {
                     b.Property<int>("UnitId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UnitId"));
 
                     b.Property<string>("BodyType")
                         .IsRequired()
@@ -118,11 +112,8 @@ namespace Importation.Migrations
 
             modelBuilder.Entity("Importation.Model.UserAccount", b =>
                 {
-                    b.Property<int>("UserID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("UserLoginID")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"));
 
                     b.Property<int>("Admin")
                         .HasMaxLength(1)
@@ -155,17 +146,12 @@ namespace Importation.Migrations
                     b.Property<DateTime>("RecordTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserLoginID")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("UserID");
+                    b.HasKey("UserLoginID");
 
                     b.ToTable("UsersAccount");
                 });
@@ -173,10 +159,7 @@ namespace Importation.Migrations
             modelBuilder.Entity("Importation.Model.UserInformation", b =>
                 {
                     b.Property<int>("UserID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -208,12 +191,12 @@ namespace Importation.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<int>("UserLoginIDUserID")
+                    b.Property<int>("UserLoginID")
                         .HasColumnType("int");
 
                     b.HasKey("UserID");
 
-                    b.HasIndex("UserLoginIDUserID");
+                    b.HasIndex("UserLoginID");
 
                     b.ToTable("UsersInformation");
                 });
@@ -231,13 +214,13 @@ namespace Importation.Migrations
 
             modelBuilder.Entity("Importation.Model.UserInformation", b =>
                 {
-                    b.HasOne("Importation.Model.UserAccount", "UserLoginID")
+                    b.HasOne("Importation.Model.UserAccount", "UserloginID")
                         .WithMany()
-                        .HasForeignKey("UserLoginIDUserID")
+                        .HasForeignKey("UserLoginID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserLoginID");
+                    b.Navigation("UserloginID");
                 });
 
             modelBuilder.Entity("Importation.Model.Shipment", b =>

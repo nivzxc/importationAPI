@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Importation.Model
 {
@@ -6,7 +7,8 @@ namespace Importation.Model
     {
 
         [Key]
-        [Required]        
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UnitId { get; set; }
 
         [Required]

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Importation.Interface;
+using Importation.Model;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,19 +10,48 @@ namespace Importation.Controllers
     [ApiController]
     public class ShipmentController : ControllerBase
     {
-        // GET: api/<ShipmentController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IShipmentRepository _shipmentRepository;
+        public ShipmentController(IShipmentRepository shipmentRepository)
         {
-            return new string[] { "value1", "value2" };
+                _shipmentRepository = shipmentRepository;
         }
 
-        // GET api/<ShipmentController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+
+        [HttpGet]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Shipment>))]
+        public IActionResult GetShipments() 
         {
-            return "value";
+            var shipments = _shipmentRepository.GetShipments();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return Ok(shipments);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetShipmentsByID(int id) 
+        {
+            var ShipmentandUnits = _shipmentRepository.GetShipmentsUnitsByID(id);
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return Ok(ShipmentandUnits);
+
+        }
+
+        //// GET: api/<ShipmentController>
+        //[HttpGet]        
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
+
+        //// GET api/<ShipmentController>/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST api/<ShipmentController>
         [HttpPost]

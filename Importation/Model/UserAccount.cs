@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Importation.Model
 {
@@ -6,12 +7,9 @@ namespace Importation.Model
     {
         [Key]
         [Required]
-        public int UserID { get; set; }
-
-        [Required]
-        [MaxLength(100)]
-        public string UserLoginID { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int UserLoginID { get; set; }
+               
         [Required]
         [MaxLength(100)]
         public string Username { get; set; }
@@ -44,5 +42,7 @@ namespace Importation.Model
         [Required]
         [MaxLength(50)]
         public string ModifiedBy { get; set; }
+
+        
     }
 }

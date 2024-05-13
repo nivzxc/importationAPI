@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Importation.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class _05132024_1245_UpdateDataModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,8 +15,7 @@ namespace Importation.Migrations
                 name: "Shipments",
                 columns: table => new
                 {
-                    shipmentid = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    shipmentid = table.Column<int>(type: "int", nullable: false),
                     shipmentNo = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     SupplierID = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     ContainerNo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -32,9 +31,7 @@ namespace Importation.Migrations
                 name: "UsersAccount",
                 columns: table => new
                 {
-                    UserID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserLoginID = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    UserLoginID = table.Column<int>(type: "int", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Admin = table.Column<int>(type: "int", maxLength: 1, nullable: false),
@@ -47,15 +44,14 @@ namespace Importation.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UsersAccount", x => x.UserID);
+                    table.PrimaryKey("PK_UsersAccount", x => x.UserLoginID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Units",
                 columns: table => new
                 {
-                    UnitId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UnitId = table.Column<int>(type: "int", nullable: false),
                     UnitNo = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     EngineNo = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Make = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
@@ -81,24 +77,23 @@ namespace Importation.Migrations
                 name: "UsersInformation",
                 columns: table => new
                 {
-                    UserID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     MiddleName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     MobileNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     EmailAddress = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    UserLoginIDUserID = table.Column<int>(type: "int", nullable: false)
+                    UserLoginID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UsersInformation", x => x.UserID);
                     table.ForeignKey(
-                        name: "FK_UsersInformation_UsersAccount_UserLoginIDUserID",
-                        column: x => x.UserLoginIDUserID,
+                        name: "FK_UsersInformation_UsersAccount_UserLoginID",
+                        column: x => x.UserLoginID,
                         principalTable: "UsersAccount",
-                        principalColumn: "UserID",
+                        principalColumn: "UserLoginID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -108,9 +103,9 @@ namespace Importation.Migrations
                 column: "shipmentid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsersInformation_UserLoginIDUserID",
+                name: "IX_UsersInformation_UserLoginID",
                 table: "UsersInformation",
-                column: "UserLoginIDUserID");
+                column: "UserLoginID");
         }
 
         /// <inheritdoc />

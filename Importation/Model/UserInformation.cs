@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Importation.Model
 {
@@ -6,6 +7,7 @@ namespace Importation.Model
     {
         [Key]
         [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UserID { get; set; }
 
         [Required]
@@ -31,6 +33,6 @@ namespace Importation.Model
         [Required]
         [MaxLength(100)]
         public string Address { get; set; }
-        public UserAccount UserLoginID { get; set; }
+        public UserAccount UserloginID { get; set; }
     }
 }
